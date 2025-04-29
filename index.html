@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <!-- ReactDOM -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Babel para procesar JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Introducción a REACT</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function Greeting(){
+            return <h1>¡Hola, bienvenido a React!</h1>;
+        }
+
+        function CommentForm() {
+            return (
+                <div>
+                    <input type="text" placeholder="Ingresa tu comentario" />
+                    <button>Enviar</button>
+                </div>
+            );
+        }
+
+        function App() {
+            const [comment, setComment] =useState('');
+            const [commentList, setCommentList] = useState([]);
+
+            function addComment() {
+                if (comment.trim()) {
+                    setCommentList([...commentList, comment]);
+                    setComment('');
+                }
+            }
+
+            return (
+                <div>
+                    <input type="text" value={comment} onChange = {e => setComment(e.target.value)} placeholder= "Comentar..."/>
+                    <button onClick={addComment}>¡Comentar!</button>
+                    <ul>
+                        {commentList.map((c,index)=> <li key={index}>{c}</li>)}
+                    </ul>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(
+            <div>
+                <Greeting />
+                <CommentForm />
+                <App />
+            </div>
+        );
+    </script>
+</body>
+</html>
