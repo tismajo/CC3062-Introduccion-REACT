@@ -20,23 +20,42 @@
             return <h1>¡Hola, bienvenido a React!</h1>;
         }
 
+        function CommentForm({ onAddComment }) {
+            const [inputValue, setInputValue] = useState('');
+
+            const handleSubmit = () => {
+                if (inputValue.trim()) {
+                    onAddComment(inputValue);
+                    setInputValue('');
+                }
+            };
+
+            return (
+                <div>
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onChange={e => setInputValue(e.target.value)}
+                        onKeyDown={e => { if (e.key === 'Enter') handleSubmit(); }}
+                        placeholder="Comentar..."
+                    />
+                    <button onClick={handleSubmit}>¡Comentar!</button>
+                </div>
+            );
+    }
+
         function App() {
-            const [comment, setComment] =useState('');
             const [commentList, setCommentList] = useState([]);
 
-            function addComment() {
-                if (comment.trim()) {
-                    setCommentList([...commentList, comment]);
-                    setComment('');
-                }
+            function addComment(newComment) {
+                setCommentList([...commentList, newComment]);
             }
 
             return (
                 <div>
-                    <input type="text" value={comment} onChange = {e => setComment(e.target.value)} placeholder= "Comentar..."/>
-                    <button onClick={addComment}>¡Comentar!</button>
+                    <CommentForm onAddComment={addComment} />
                     <ul>
-                        {commentList.map((c,index)=> <li key={index}>{c}</li>)}
+                        {commentList.map((c, index) => <li key={index}>{c}</li>)}
                     </ul>
                 </div>
             );
