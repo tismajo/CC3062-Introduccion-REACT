@@ -20,15 +20,6 @@
             return <h1>¡Hola, bienvenido a React!</h1>;
         }
 
-        function CommentForm() {
-            return (
-                <div>
-                    <input type="text" placeholder="Ingresa tu comentario" />
-                    <button>Enviar</button>
-                </div>
-            );
-        }
-
         function App() {
             const [comment, setComment] =useState('');
             const [commentList, setCommentList] = useState([]);
